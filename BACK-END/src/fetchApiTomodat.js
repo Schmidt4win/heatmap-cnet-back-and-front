@@ -52,9 +52,22 @@ async function getAllAcessPoints() {
   }
 }
 
+// async function getAllAcessPointsSplitters() {
+//   try {
+
+//     const response = await fetch(`https://sp.tomodat.com.br/tomodat/api/clients/viability/${coord.lat}/${coord.lng}/${coord.range}`, reqConfig)
+
+//     const data = await response.json()
+
+//     return data
+//   } catch (err) {
+//     console.error("erro " + err)
+//   }
+// }
 
 export async function getAllClientsByCto() {
   const apList = await getAllAcessPoints();
+  // const splittersList = getAllAcessPointsSplitters();
 
   const ctoList = apList.filter(ap => ap.category === 5);
 

@@ -20,6 +20,19 @@ static CadastrarUser = (req, res) => {
     })
 }
 
+static atualizarUser = (req, res) => {
+    const id = req.params.id;
+
+    user.findByIdAndUpdate (id, {$set: req.body}, (err) => {
+        if(!err) {
+            res.status(200).send({message: `Senha alterada com sucesso!`})
+        } else {
+            res.status(500).send({message: err.message})
+        }
+    })
+    
+}
+
 }
 
 export default UserController
