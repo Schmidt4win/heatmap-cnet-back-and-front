@@ -4,7 +4,7 @@ import https from 'https'
 import cors from "cors";
 import http from 'http';
 
-const port = process.env.PORT || 5009; //always 5005
+const port = process.env.PORT || 5005; //always 5005
 const host = '0.0.0.0';
 
 // var privateKey  = fs.readFileSync('src/key.pem', 'utf8');
