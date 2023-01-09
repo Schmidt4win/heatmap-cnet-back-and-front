@@ -9,4 +9,5 @@ router
  .post("/users", UserController.CadastrarUser)
  .put("/users/:id", UserController.atualizarUser)
  .delete("/users/:id", UserController.excluirUser)
+ .get("/users/:id", UserController.ListarUsersPorId)
 export default router;

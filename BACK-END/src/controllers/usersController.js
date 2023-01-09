@@ -9,6 +9,13 @@ static ListarUsers = (req, res) => {
 })
 }
 
+static ListarUsersPorId = (req, res) => {
+  const id = req.params.id;
+  user.findById(id, (err, user)=>{
+  res.status(200).json(user)
+})
+}
+
 static CadastrarUser = (req, res) => {
     let users = new user(req.body);
     users.save((err) =>{
