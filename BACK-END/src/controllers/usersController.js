@@ -14,6 +14,13 @@ static ListarUsers = (req, res) => {
 })
 }
 
+static ListarUsersPorId = (req, res) => {
+  const id = req.params.id;
+  user.findById(id, (err, user)=>{
+  res.status(200).json(user)
+})
+}
+
 static CadastrarUser = (req, res) => {
     let users = new user(req.body);
     users.save((err) =>{
@@ -23,9 +30,21 @@ static CadastrarUser = (req, res) => {
             res.status(201).send(users.toJSON())
         }
     })
-}
+} 
 
-  static RegisterUser = async (req, res) => {
+static atualizarUser = (req, res) => {
+  const id = req.params.id;
+
+  user.findByIdAndUpdate (id, {$set: req.body}, (err) => {
+      if(!err) {
+          res.status(200).send({message: `Senha alterada com sucesso!`})
+      } else {
+          res.status(500).send({message: err.message})
+
+ }})
+ }
+
+static RegisterUser = async (req, res) => {
     try {
       // Get user input
       let { name, password, category } = req.body;
@@ -105,6 +124,17 @@ static CadastrarUser = (req, res) => {
       console.log(err);
     }
   };
+
+  static excluirUser = (req, res) => {
+    const id = req.params.id;
+    user.findByIdAndDelete(id, (err) =>{
+        if(!err){
+            res.status(200).send({message: `Usuario id: ${req.body.id} removido com sucesso`})
+        } else {
+            res.status(500).send({message: err.message})
+        }
+    })
+ }
 
 }
 

@@ -6,10 +6,10 @@ const router = express.Router();
 
 router
  .get("/users", UserController.ListarUsers)
- .post("/users", UserController.CadastrarUser)
+ .post("/users", UserController.RegisterUser)
  .put("/users/:id", UserController.atualizarUser)
  .delete("/users/:id", UserController.excluirUser)
  .get("/users/:id", UserController.ListarUsersPorId)
- .post("/register", UserController.RegisterUser)
  .post("/login", UserController.userLogin)
+ //  .post("/register", UserController.RegisterUser)
 export default router;
