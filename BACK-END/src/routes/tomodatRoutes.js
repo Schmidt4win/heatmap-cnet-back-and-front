@@ -1,6 +1,7 @@
 import express  from "express";
 import TomodatController from "../controllers/tomodatCrontoller.js";
 import LogClientController from "../controllers/logsController.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 

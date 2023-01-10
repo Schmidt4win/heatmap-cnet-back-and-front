@@ -109,7 +109,7 @@ static RegisterUser = async (req, res) => {
           { user_id: usuario._id, name },
           process.env.TOKEN_KEY,
           {
-            expiresIn: "1h",
+            expiresIn: "24h",
           }
         );
   
