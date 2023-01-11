@@ -58,8 +58,8 @@ static RegisterUser = async (req, res) => {
       // Validate if user exist in our database
       let oldUser = await user.find({name});
   
-      if (!oldUser) {
-        return res.status(409).send("User Already Exist. Please Login");
+      if (oldUser === name) {
+        return res.status(409).send("User Already Exist. Please Login")
       } else {
   
       //Encrypt user password
@@ -117,7 +117,12 @@ static RegisterUser = async (req, res) => {
         usuario.save( usuario.token = token);
   
         // user
-        res.status(201).send({message: `${usuario.name} autenticado com sucesso. token de acesso: ${usuario.token}`});
+        let retorno = {
+          name: usuario.name,
+          category: usuario.category,
+          token: usuario.token
+          }
+        res.status(201).send(retorno);
       } else {
         res.status(404).send({message: `Usuario ou senha invalidos.`})};
     } catch (err) {

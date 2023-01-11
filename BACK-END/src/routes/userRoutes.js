@@ -11,5 +11,5 @@ router
  .delete("/users/:id", UserController.excluirUser)
  .get("/users/:id", UserController.ListarUsersPorId)
  .post("/login", UserController.userLogin)
- //  .post("/register", UserController.RegisterUser)
+  .post("/register", UserController.RegisterUser)
 export default router;

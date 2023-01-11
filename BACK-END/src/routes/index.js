@@ -6,7 +6,7 @@ import token from "./tokenRoutes.js"
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
-        res.status(200).send({titulo: "curso de node"})
+        res.status(200).send({message: "Estte é o servidor BACKEND da aplicação da Conectnet Telecomunicações"})
     })
 
 
