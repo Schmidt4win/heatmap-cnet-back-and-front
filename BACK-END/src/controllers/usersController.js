@@ -52,13 +52,13 @@ static RegisterUser = async (req, res) => {
       // Validate user input
       if (!(name && password )) {
         res.status(400).send("All input is required");
-      }
+      } 
   
       // check if user already exist
       // Validate if user exist in our database
       let oldUser = await user.find({name});
   
-      if (oldUser === name) {
+       if (oldUser) {
         return res.status(409).send("User Already Exist. Please Login")
       } else {
   
