@@ -6,7 +6,7 @@ import auth from "../middleware/auth.js";
 const router = express.Router();
 
 router
- .get("/tomodat", TomodatController.ListarClients)
+ .get("/tomodat",  TomodatController.ListarClients)
  .get("/ctos",  TomodatController.ListarCtos)
  .post("/client", auth, LogClientController.CadastrarLog, TomodatController.CadastrarClient)
  .post("/logctoclient", auth, LogClientController.CadastrarLog)

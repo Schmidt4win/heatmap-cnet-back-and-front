@@ -78,7 +78,8 @@ export async function getAllClientsByCto() {
       id: cto.id,
       name: cto.name,
       coord: cto.dot,
-      clients: getClientsByCto(users, cto.id)
+      clients: getClientsByCto(users, cto.id),
+      percentage_free: cto.percentage_free
     }
   });
 
