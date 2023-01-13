@@ -34,10 +34,15 @@ static CadastrarUser = (req, res) => {
 
 static atualizarUser = (req, res) => {
   const id = req.params.id;
+  let { name, password, category } = req.body;
 
-  user.findByIdAndUpdate (id, {$set: req.body}, (err) => {
+  let encryptedPassword = bcrypt.hash(password, 10);
+
+  let dados = {name, encryptedPassword, category};
+  
+  user.findByIdAndUpdate (id, {$set: dados}, (err) => {
       if(!err) {
-          res.status(200).send({message: `Senha alterada com sucesso!`})
+          res.status(200).send({message: `Alteração realizada com sucesso,`})
       } else {
           res.status(500).send({message: err.message})
 
@@ -56,9 +61,9 @@ static RegisterUser = async (req, res) => {
   
       // check if user already exist
       // Validate if user exist in our database
-      let oldUser = await user.find({name});
+       let oldUser = await user.find({name});
   
-       if (oldUser) {
+       if (oldUser === name) {
         return res.status(409).send("User Already Exist. Please Login")
       } else {
   
