@@ -24,7 +24,7 @@ function sendLogClient(){
 };
 
 function sendClient(){
-    needle.post("https://api.heatmap.conectnet.net/teste",
+    needle.post("https://api.heatmap.conectnet.net/client",
     {      
      name:"TESTE cliente e log",
      lat:"-29.585405",
