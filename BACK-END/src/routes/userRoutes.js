@@ -5,7 +5,7 @@ import auth from "../middleware/auth.js";
 const router = express.Router();
 
 router
- .get("/users", auth, UserController.ListarUsers)
+ .get("/users",  UserController.ListarUsers)
  .post("/users", auth, UserController.RegisterUser)
  .put("/users/:id", auth, UserController.atualizarUser)
  .delete("/users/:id", auth, UserController.excluirUser)

@@ -11,5 +11,7 @@ router
  .post("/client", auth, LogClientController.CadastrarLog, TomodatController.CadastrarClient)
  .post("/logctoclient", auth, LogClientController.CadastrarLog)
  .get("/logctoclient", auth, LogClientController.ListarLogCtoClient)
+ 
+ 
 //  .post("/teste", LogClientController.CadastrarLog, TomodatController.CadastrarClient)
 export default router;

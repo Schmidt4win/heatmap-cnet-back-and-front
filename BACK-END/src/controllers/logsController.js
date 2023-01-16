@@ -21,13 +21,16 @@ class LogClientController {
 
     static ListarLogCtoClient = (req, res) => {
     logCtoClient.find((err, logCtoClient)=>{
-    res.status(200).json(logCtoClient)
-})
+    res.status(200).send(logCtoClient)
+}).sort({_id: -1})
+};
+   
+    
+  
 };
 
 
 
-}
 
 export default LogClientController;
 
