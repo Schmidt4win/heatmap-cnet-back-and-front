@@ -66,22 +66,21 @@ async function getAllAcessPoints() {
 // }
 
 export async function getAllClientsByCto() {
-  const apList = await getAllAcessPointsByCity();
+  const apList = await getAllAcessPoints();
   // const splittersList = getAllAcessPointsSplitters();
 
-  // const ctoList = apList.filter(ap => ap.category === 5);
+  const ctoList = apList.filter(ap => ap.category === 5);
 
   const users = await getAllClients();
 
-  const usersByCto = apList.map(cto => {
+  const usersByCto = ctoList.map(cto => {
     return {
       id: cto.id,
       name: cto.name,
       coord: cto.dot,
       clients: getClientsByCto(users, cto.id),
-      percentage_free: cto.percentage_free,
-      city: cto.tree[3]
-
+      percentage_free: cto.percentage_free
+      
     }
   });
 
@@ -113,7 +112,6 @@ export function addClient(req, res) {
 }))
 };
 
-getAllClientsByCto().then(console.log)
 
 //padrão resposta json cadastro cliente
 // {

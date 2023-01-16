@@ -30,7 +30,7 @@ async function loadMap() {
 
     mapCoordinates = tomodatData.map(
       (data) =>
-        new google.maps.LatLng(data.coord.lat, data.coord.lng)
+        new google.maps.LatLng(data.coord?.lat, data.coord?.lng)
     );
 
     pointArray = new google.maps.MVCArray(mapCoordinates);
