@@ -16,6 +16,14 @@ async function fetchCamera() {
 function getTableColumn(data, index) {
   const { clientCameraName, serialNumber, _id } = data;
 
+  const paths = Object.keys(data).filter(key => key.startsWith("filePath"));
+
+  const joinPaths = JSON.stringify(
+    paths.map(path => ({
+      filePath: data[path],
+    }))
+  );
+
   return `<th scope="row">${index + 1}</th>
               <td>${clientCameraName}</td>
               <td>${serialNumber}</td>
@@ -23,7 +31,7 @@ function getTableColumn(data, index) {
                 <button 
                 type="button" 
                 class="btn btn-sm btn-success" 
-                data-camera-id="${_id}" 
+                data-camera-paths='${joinPaths}' 
                 >
                 <i class="bi bi-qr-code"></i>
                 Abrir
@@ -45,7 +53,6 @@ function getTableRows(dataRows) {
 
 async function setTableContent(hasFilter) {
   const data = await fetchCamera();
-  console.log(data);
   let filterResults = false;
   if (hasFilter) {
     filterResults = data.filter(d => d?.clientCameraName.includes(hasFilter));
@@ -65,36 +72,65 @@ $("#searchCameraClientInput").addEventListener("keyup", function () {
 });
 
 cameraTable.addEventListener("click", async function (e) {
-  const id = e.target.dataset?.cameraId;
+  const paths = e.target.dataset?.cameraPaths;
 
-  if (!e.target.dataset.cameraId) return;
+  if (!e.target.dataset.cameraPaths) return;
 
-  const img = await getCodeImage(id);
+  const filePaths = JSON.parse(paths);
 
-  const imgContainer = $("#cameraImgContainer");
+  const imgFiles = await getCameraImgs(filePaths);
 
-  imgContainer.style.backgroundImage = `url('${img.url}')`;
+  const urlPromiseList = await readImgFiles(imgFiles);
 
-  $("#openImgBtn").dataset.imgId = img.url;
+  renderCarouselItems(await createCarouselItems(urlPromiseList));
 
   modal.show();
 });
 
-async function getCodeImage(id) {
-  const response = await fetch(
-    `https://api.heatmap.conectnet.net/getcameraimg/${id}`
+async function getCameraImgs(paths) {
+  const response = await Promise.all(
+    paths.map(filePath => {
+      return fetch(`https://api.heatmap.conectnet.net/getcameraimg`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(filePath),
+      });
+    })
   );
 
   return response;
 }
 
-function openNewTab(url) {
-  const win = window.open(url, "_blank");
-  win.focus();
+async function readImgFiles(files) {
+  return files.map(async filePromise => {
+    const blob = await filePromise.blob();
+
+    const imageUrl = URL.createObjectURL(blob);
+
+    return imageUrl;
+  });
 }
 
-$("#openImgBtn").addEventListener("click", function () {
-  openNewTab(this.dataset.imgId);
-});
+function createCarouselItems(urls) {
+  return urls.reduce(async (htmlTextPromise, urlPromise) => {
+    let htmlText = await htmlTextPromise;
+    const url = await urlPromise;
+
+    htmlText += `<div class="carousel-item">
+      <img src="${url}" class="d-block w-100" height="auto">
+    </div>`;
+
+    return htmlText;
+  }, Promise.resolve(""));
+}
+
+function renderCarouselItems(items) {
+  $("#carouselInnerContainer").innerHTML = items.replace(
+    `carousel-item`,
+    `carousel-item active`
+  );
+}
 
 renderCameraTable();
