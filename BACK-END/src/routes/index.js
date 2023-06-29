@@ -11,6 +11,7 @@ import vlan from "./vlanRoutes.js";
 import pppoe from "./pppoeRoutes.js";
 import equipament from "./equipamentRoutes.js"
 import backup from "./backupRoutes.js"
+import olt from "./oltRoutes.js"
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -31,7 +32,8 @@ const routes = (app) => {
      vlan,
      pppoe,
      equipament,
-     backup
+     backup,
+     olt
      )
 }
 

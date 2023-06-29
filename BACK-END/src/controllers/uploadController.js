@@ -12,8 +12,8 @@ class UploadController {
     const firstFileExtension = firstOriginalname.split('.').pop();
     const secondFileExtension = secondOriginalname.split('.').pop();
     // const newFileName = `${clientCameraName}FOTO1-${serialNumber}.${fileExtension}`;
-    const firstNewFileName = `${clientCameraName}FOTO1-${serialNumber}-1.${firstFileExtension}`;
-    const secondNewFileName = `${clientCameraName}FOTO2-${serialNumber}-2.${secondFileExtension}`;
+    const firstNewFileName = `${clientCameraName}-FOTO1-${serialNumber}-1.${firstFileExtension}`;
+    const secondNewFileName = `${clientCameraName}-FOTO2-${serialNumber}-2.${secondFileExtension}`;
     // const newPath = `/./CAMERAS/uploads/${newFileName}`;
     const firstNewPath = `/./CAMERAS/uploads/${firstNewFileName}`;
     const secondNewPath = `/./CAMERAS/uploads/${secondNewFileName}`;
