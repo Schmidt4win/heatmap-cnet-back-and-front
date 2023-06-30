@@ -10,7 +10,6 @@ router
   .post("/verificar-ramal", oltController.verificarRamais) // lista os ramais no banco.
   .post("/listar-onu", oltController.listarOnu)
   .post("/liberar-onu", oltController.liberarOnu)
-  .post("/listar-vlan", oltController.ListarVlans)
-
+ 
  
 export default router;

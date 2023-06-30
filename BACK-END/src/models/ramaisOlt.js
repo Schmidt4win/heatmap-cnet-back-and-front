@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ramaisparksschema = new mongoose.Schema({
-  ID: {
+  oltRamal: {
     type: String, required: true,
   },
   oltIp: {
@@ -10,6 +10,9 @@ const ramaisparksschema = new mongoose.Schema({
   oltPon: {
     type: String, required: true,
   },
+  ponVlan: {
+    type: String, required: true
+  }
 });
 
 const ramaisModel = mongoose.model('ramaisparks', ramaisparksschema);
