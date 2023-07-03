@@ -122,7 +122,6 @@ class oltController {
             })
             .on("data", (data) => {
               dataBuffer += data.toString();
-              // Check for a complete line
               if (dataBuffer.includes("\n")) {
                 const lines = dataBuffer.split("\n");
                 dataBuffer = lines.pop();
