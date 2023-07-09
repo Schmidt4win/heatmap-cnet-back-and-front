@@ -36,5 +36,5 @@ function cadastroFetch(){
 
 setInterval(cadastroFetch, 21600000) // setinterval = 6h (21600000)
 
-// cadastroFetch();
+ cadastroFetch();
 

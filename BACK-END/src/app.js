@@ -29,6 +29,12 @@ app.use(
 app.get('/docapi', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
+app.get('/email', (req, res) => {
+  res.sendFile(path.join(__dirname, '/email.html'));
+});
+app.get('/lista-email', (req, res) => {
+  res.sendFile(path.join(__dirname, '/lista.html'));
+});
 app.use(express.json({limit: '50mb'})); //add {limit: '50mb'} referente ao erro PayloadTooLargeError: request entity too large
 
 routes(app);
