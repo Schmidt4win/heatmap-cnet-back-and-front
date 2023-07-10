@@ -5,6 +5,7 @@ const ramaisparksschema = new mongoose.Schema({
   oltIp: { type: String, required: true },
   oltPon: { type: String, required: true },
   ponVlan: { type: String, required: true },
+  oltName: {type: String, required: true}
 });
 
 const ramaisModel = mongoose.model("ramaisparks", ramaisparksschema);
