@@ -12,6 +12,7 @@ import pppoe from "./pppoeRoutes.js";
 import equipament from "./equipamentRoutes.js"
 import backup from "./backupRoutes.js"
 import olt from "./oltRoutes.js"
+import onu from "./onuClienteRoutes.js"
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -33,7 +34,8 @@ const routes = (app) => {
      pppoe,
      equipament,
      backup,
-     olt
+     olt,
+     onu
      )
 }
 

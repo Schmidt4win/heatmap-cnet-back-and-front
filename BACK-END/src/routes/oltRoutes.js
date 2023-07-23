@@ -9,6 +9,8 @@ router
   .get("/ramais", oltController.ListarRamais) // lista os ramais no banco.
   .post("/verificar-ramal", oltController.verificarRamais) // lista os ramais no banco.
   .post("/listar-onu", oltController.listarOnu)
+  .post("/verificar-onu", oltController.VerificarOnu)
+  .post("/verificar-pon", oltController.VerificarSinalPon)
   .post("/liberar-onu", oltController.liberarOnu)
  
  
