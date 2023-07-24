@@ -141,7 +141,7 @@ class oltController {
                 const lines = dataBuffer.split("\n");
                 dataBuffer = lines.pop();
                 for (const line of lines) {
-                  console.log("Output: " + line);
+                  // console.log("Output: " + line);
 
                   const onuAliasMatch = line.match(/^\s*[\d-]*([\w-]+)(?::|$)/); // Modified regex to handle alias without colon
                   if (onuAliasMatch) {
@@ -179,6 +179,89 @@ class oltController {
         username: username,
         password: password,
       });
+};
+static VerificarNomeOnuPon = (req, res) => {
+  let host = req.body.oltIp;
+  let gpon = req.body.oltPon;
+  const username = process.env.PARKS_USERNAME;
+  const password = `#${process.env.PARKS_PASSWORD}`;
+  const conn = new Client();
+
+  conn
+    .on("ready", () => {
+      console.log("Connected to the OLT");
+      conn.shell((err, stream) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: "Error connecting to the OLT" });
+          return;
+        }
+
+        let dataBuffer = "";
+        let jsonOutput = []; // Change to an array to store ONU data
+
+        stream
+          .on("close", () => {
+            console.log("Disconnected from the OLT");
+            res.json(jsonOutput); // Send the modified JSON as the response
+            console.log(jsonOutput);
+            conn.end();
+          })
+          .on("data", (data) => {
+            dataBuffer += data.toString();
+            if (dataBuffer.includes("\n")) {
+              const lines = dataBuffer.split("\n");
+              dataBuffer = lines.pop();
+              let onuData = {}; // Create an object to store ONU data temporarily
+
+              for (const line of lines) {
+                // console.log("Output: " + line);
+
+                const onuAliasMatch = line.match(/^\s*(\d+)-([\w-]+)\s+\(([\w-]+)\):/);
+                if (onuAliasMatch) {
+                  if (Object.keys(onuData).length > 0) {
+                    jsonOutput.push(onuData); // Add the previous ONU data to the output array
+                  }
+                  onuData = {
+                    name: onuAliasMatch[2],
+                    mac: onuAliasMatch[3],
+                  };
+                } else if (line.includes("Flow profile:")) {
+                  onuData.flowProfile = line.split(":")[1].trim();
+                } else if (line.includes("Ports VLAN translation profile:")) {
+                  onuData.portsVlanTranslation = {};
+                } else if (line.includes("Ports Ethernet profile:")) {
+                  onuData.portsEthernet = {};
+                } else if (onuData.portsVlanTranslation && line.includes(":")) {
+                  const [port, vlan] = line.split(":").map((str) => str.trim());
+                  onuData.portsVlanTranslation[port] = vlan;
+                } else if (onuData.portsEthernet && line.includes(":")) {
+                  const [port, status] = line.split(":").map((str) => str.trim());
+                  onuData.portsEthernet[port] = status;
+                }
+              }
+
+              if (Object.keys(onuData).length > 0) {
+                jsonOutput.push(onuData); // Add the last ONU data to the output array
+              }
+            }
+          });
+
+        stream.write("terminal length 0\n");
+        stream.write(`sh interface ${gpon} onu \n`);
+        stream.write("exit\n");
+      });
+    })
+    .on("error", (err) => {
+      console.error(err);
+      res.status(500).json({ error: "Error connecting to the OLT" });
+    })
+    .connect({
+      host: host,
+      port: 22,
+      username: username,
+      password: password,
+    });
 };
   static listarOnu = (req, res) => {
     let host = req.body.oltIp;

@@ -23,7 +23,8 @@ class OnuController {
 static ListOnu = (req, res) => {
     OnuClient.find((err, user) => {
         res.status(200).json(user);
-      });
+      })
+      .sort({ _id: -1 });
 }
 }
 

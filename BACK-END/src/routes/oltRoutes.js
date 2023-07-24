@@ -11,6 +11,7 @@ router
   .post("/listar-onu", oltController.listarOnu)
   .post("/verificar-onu", oltController.VerificarOnu)
   .post("/verificar-pon", oltController.VerificarSinalPon)
+  .post("/verificar-onu-name-pon", oltController.VerificarNomeOnuPon)
   .post("/liberar-onu", oltController.liberarOnu)
  
  
