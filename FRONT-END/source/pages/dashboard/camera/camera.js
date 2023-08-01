@@ -25,7 +25,7 @@ function getTableColumn(data, index) {
   );
 
   return `<th scope="row">${index + 1}</th>
-              <td>${clientCameraName}</td>
+              <td>${clientCameraName.toUpperCase()}</td>
               <td>${serialNumber}</td>
               <td>
                 <button 
@@ -55,7 +55,7 @@ async function setTableContent(hasFilter) {
   const data = await fetchCamera();
   let filterResults = false;
   if (hasFilter) {
-    filterResults = data.filter(d => d?.clientCameraName.includes(hasFilter));
+    filterResults = data.filter(d => d?.clientCameraName.toLowerCase().includes(hasFilter));
   }
 
   const tableContent = getTableRows(hasFilter ? filterResults : data);
@@ -68,7 +68,7 @@ function renderCameraTable(withFilter = false) {
 }
 
 $("#searchCameraClientInput").addEventListener("keyup", function () {
-  renderCameraTable(this.value);
+  renderCameraTable(this.value.toLowerCase());
 });
 
 cameraTable.addEventListener("click", async function (e) {

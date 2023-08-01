@@ -3,6 +3,8 @@ import { $, get } from "./handleForm.js";
 import { triggerToast } from "./toast.js";
 
 const modal = new bootstrap.Modal($("#addCameraModal"));
+const saveBtn = $("#saveCameraBtn");
+const saveBtnLoader = $("#saveCameraLoader");
 
 async function sendCamera(data) {
   const response = await sendApiReq({
@@ -49,6 +51,9 @@ $("#addCameraForm").addEventListener("submit", async function (e) {
   if ($("#checkFiles").checked) {
     const data = new FormData(this);
 
+    saveBtn.disabled = true;
+    saveBtnLoader.classList.remove("d-none");
+
     const response = await sendCamera(data);
 
     if (response.status === 200) {
@@ -62,4 +67,7 @@ $("#addCameraForm").addEventListener("submit", async function (e) {
   } else {
     triggerToast("Confirme os dados antes de enviar!", false);
   }
+
+  saveBtn.disabled = false;
+  saveBtnLoader.classList.add("d-none");
 });
