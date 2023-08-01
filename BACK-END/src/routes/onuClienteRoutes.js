@@ -7,6 +7,8 @@ const router = express.Router();
 router
  
  .get("/onuget", OnuController.ListOnu) // lsita os dados dos equipamentos.
+ .get("/allonuget", OnuController.ListAllOnu)
+ .get("/onuedit", OnuController.EditOnu)
  
  
  export default router;

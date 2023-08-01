@@ -9,6 +9,9 @@ const onuClientSchema = new mongoose.Schema({
   onuAlias: { type: String, require: true },
   user: { type: String, require: true },
   date_time: { type: String, require: true },
+  cto:{ type: String, require: true },
+  tecnico: { type: String, require: true },
+
 });
 
 const OnuClient = mongoose.model("OnuClient", onuClientSchema);
