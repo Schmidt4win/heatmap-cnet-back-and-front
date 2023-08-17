@@ -18,6 +18,19 @@ static ListAllOnu = (req, res) => {
       .sort({ _id: -1 });
 }
 
+static DeleteOnu = (req, res) => {
+    let id = req.params.id;
+    AllClientsRamalData.findByIdAndDelete(id, (err) => {
+      if (err) {
+        res
+          .status(500)
+          .send({ message: `${err.message} - falha ao deletar dados.` });
+      } else {
+        res.status(201).send({ message: `Dados deletados com sucesso.` });
+      }
+    });
+}
+
 static EditOnu = (req, res, next) => {
     let oldAlias = req.body.Alias;
     let newAlias = req.body.onuAlias

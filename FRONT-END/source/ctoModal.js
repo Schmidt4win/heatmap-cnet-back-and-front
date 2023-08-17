@@ -121,29 +121,29 @@ export function recalcFreePorts(totalClients, oldPercentage) {
 function setModalInfo(info) {
   const { clients, name, coord, percentage_free, id } = info;
 
-  // $("#copyAllNames").addEventListener(
-  //   "click",
-  //   function () {
-  //     let listName = "";
-  //     clients.forEach(client => {
-  //       listName += client.name + "\n";
-  //     });
-  //     navigator.clipboard.writeText(listName);
-  //   },
-  //   { once: true }
-  // );
+  $("#copyAllNames").addEventListener(
+    "click",
+    function () {
+      let listName = "";
+      clients.forEach(client => {
+        listName += client.name + "\n";
+      });
+      navigator.clipboard.writeText(listName);
+    },
+    { once: true }
+  );
 
-  // $("#copyAllNames").addEventListener(
-  //   "contextmenu",
-  //   function () {
-  //     let listName = "";
-  //     clients.forEach(client => {
-  //       listName += hifenName(client.name) + "\n";
-  //     });
-  //     navigator.clipboard.writeText(listName);
-  //   },
-  //   { once: true }
-  // );
+  $("#copyAllNames").addEventListener(
+    "contextmenu",
+    function () {
+      let listName = "";
+      clients.forEach(client => {
+        listName += hifenName(client.name) + "\n";
+      });
+      navigator.clipboard.writeText(listName);
+    },
+    { once: true }
+  );
 
   setClientsList(clients, id);
   setModalTitle(name, coord);

@@ -411,6 +411,7 @@ static VerificarNomeOnuOlt = (req, res) => {
         stream
           .on("close", () => {
             console.log("Disconnected from the OLT");
+            console.log(jsonOutput)
             res.json(jsonOutput); // Send the modified JSON as the response
             conn.end();
           })

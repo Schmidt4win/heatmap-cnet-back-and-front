@@ -8,6 +8,7 @@ router
  
  .get("/onuget", OnuController.ListOnu) // lsita os dados dos equipamentos.
  .get("/allonuget", OnuController.ListAllOnu)
+ .delete("/ramaldelete/:id", OnuController.DeleteOnu)
  .get("/onuedit", OnuController.EditOnu)
  
  
