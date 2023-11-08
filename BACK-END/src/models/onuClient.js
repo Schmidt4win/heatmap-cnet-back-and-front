@@ -11,6 +11,8 @@ const onuClientSchema = new mongoose.Schema({
   date_time: { type: String, require: true },
   cto:{ type: String, require: true },
   tecnico: { type: String, require: true },
+  sinalTX: { type: String, require: true },
+  sinalRX: { type: String, require: true }
 
 });
 

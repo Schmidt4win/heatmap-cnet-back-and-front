@@ -620,6 +620,8 @@ static VerificarNomeOnuOlt = (req, res) => {
     let user = req.body.user;
     let gpon = oltPon;
     let flowProfile = `bridge_vlan_${onuVlan}`;
+    let sinalTX = req.body.sinalTX
+    let sinalRX = req.body.sinalRX
     console.log(req.body);
     let date_time = new Date().toLocaleString("PT-br");
     
@@ -633,7 +635,9 @@ static VerificarNomeOnuOlt = (req, res) => {
       onuAlias,
       user,
       cto,
-      tecnico
+      tecnico,
+      sinalRX,
+      sinalTX
     };
     let onuRegister = new OnuClient(clienteDb);
     onuRegister.save(console.log(`Onu salva no banco: ${clienteDb}`));
